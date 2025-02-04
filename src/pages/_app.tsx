@@ -1,13 +1,13 @@
-import '@/styles/globals.css'
-import Layout from '@/components/Layout'
-import { SessionProvider } from 'next-auth/react'
+import '@/styles/globals.css';
+import { SessionContextProvider } from '@supabase/auth-helpers-react'
+import { supabase } from '@/utils/supabaseClient'
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: any) {
+function MyApp({ Component, pageProps }) {
     return (
-        <SessionProvider session={session}>
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
-        </SessionProvider>
+        <SessionContextProvider supabaseClient={supabase}>
+            <Component {...pageProps} />
+        </SessionContextProvider>
     )
 }
+
+export default MyApp

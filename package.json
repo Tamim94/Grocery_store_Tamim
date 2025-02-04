@@ -1,5 +1,5 @@
 {
-  "name": "untitled1",
+  "name": "Grocery-App",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next-auth/supabase-adapter": "^0.2.1",
+    "@supabase/auth-helpers-react": "^0.5.0",
     "@supabase/supabase-js": "^2.48.1",
     "next": "15.1.6",
     "next-auth": "^4.24.11",
