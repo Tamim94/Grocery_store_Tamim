@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 const ProductsPage = () => {
     const [products, setProducts] = useState([])
 
+
     useEffect(() => {
         const fetchProducts = async () => {
             const res = await fetch('/api/products')
@@ -14,6 +15,7 @@ const ProductsPage = () => {
     }, [])
 
     return (
+
         <div>
             <h1 className="text-2xl font-bold mb-4">Products</h1>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
