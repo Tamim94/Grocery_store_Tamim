@@ -1,34 +1,40 @@
-import { useState } from 'react'
-import { useRouter } from 'next/router'
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { supabase } from '@/utils/supabaseClient';
 
 const Signup = () => {
     const [formData, setFormData] = useState({
         email: '', password: '', first_name: '', last_name: '', gender: '', username: ''
-    })
-    const [error, setError] = useState('')
-    const router = useRouter()
+    });
+    const [error, setError] = useState('');
+    const router = useRouter();
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        setError('')
+        e.preventDefault();
+        setError('');
 
-        const res = await fetch('/api/auth/signup', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
-        })
+        const { error } = await supabase.auth.signUp({
+            email: formData.email,
+            password: formData.password,
+        }, {
+            data: {
+                first_name: formData.first_name,
+                last_name: formData.last_name,
+                gender: formData.gender,
+                username: formData.username,
+            }
+        });
 
-        const data = await res.json()
-        if (res.ok) {
-            router.push('/login')
+        if (error) {
+            setError(error.message);
         } else {
-            setError(data.error)
+            router.push('/');
         }
-    }
+    };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4">
@@ -48,7 +54,7 @@ const Signup = () => {
                 <button type="submit" className="bg-blue-500 text-white px-4 py-2">Sign Up</button>
             </form>
         </div>
-    )
-}
+    );
+};
 
-export default Signup
+export default Signup;
