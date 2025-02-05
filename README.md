@@ -80,6 +80,7 @@ grocery-store-app/
 ├── .env.local # Environment variables
 ├── package.json
 
+```
 ## 4. Frontend
 
 ### 4.1 Components
