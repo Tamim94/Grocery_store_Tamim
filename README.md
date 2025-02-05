@@ -1,6 +1,6 @@
 ## Before you read it , the admin side of the website is the functionnal (CRUD ) part of the website. The user side is just a basic layout with no functionnalities YET (incoming soon).
 I will send you the .env.local file with the supabase keys and the nextauth key in your outlook mail (if you didnt get it pm me on teams else if i put it github it will be public and i will get banned).
-## The admin part of the app will be on localhost:3000/admin login are roots@roots.com and the password is roots
+## The admin part of the app will be on localhost:3000/admin login are root@root.com and the password is root
 install all dependancies with npm run install after cloning the project 
 
 # Grocery Store Web Application Documentation
