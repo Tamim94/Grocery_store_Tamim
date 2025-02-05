@@ -33,7 +33,7 @@ This web application simulates a basic online grocery store.  Administrators can
 * **React:**  A JavaScript library for building user interfaces.
 * **Supabase:**  A backend-as-a-service platform that provides a PostgreSQL database, authentication, and other services.
 * **Tailwind CSS:**  A utility-first CSS framework.
-* **NextAuth.js (Optional):**  If used, for authentication with providers like Google.
+* **NextAuth.js (Optional):**  If used, for authentication with providers like Google. ( i tried but its complicated so i may do it later if i set up GCP)
 
 
 ## 3. Project Structure ( only the files that are important)
