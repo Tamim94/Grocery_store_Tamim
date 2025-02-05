@@ -67,12 +67,20 @@ const UserProfile = () => {
                 </div>
             ) : (
                 // Not logged in state
-                <button
-                    onClick={() => router.push("/login")}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition"
-                >
-                    Sign In
-                </button>
+                <div className="flex space-x-4">
+                    <button
+                        onClick={() => router.push("/login")}
+                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition"
+                    >
+                        Sign In
+                    </button>
+                    <button
+                        onClick={() => router.push("/signup")}
+                        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-400 transition"
+                    >
+                        Sign Up
+                    </button>
+                </div>
             )}
         </div>
     );

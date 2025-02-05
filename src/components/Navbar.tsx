@@ -39,9 +39,10 @@ const Navbar = () => {
                     ))}
                 </div>
 
-                {/* User Profile */}
+                {/* User Profile and Auth Button */}
                 <div className="flex items-center space-x-4">
                     <UserProfile />
+
                 </div>
             </div>
         </nav>

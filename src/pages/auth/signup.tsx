@@ -32,6 +32,7 @@ const Signup = () => {
         if (error) {
             setError(error.message);
         } else {
+            console.log('Sign up successful, redirecting...');
             router.push('/');
         }
     };

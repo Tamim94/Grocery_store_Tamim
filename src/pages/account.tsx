@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "@/utils/supabaseClient";
+import Navbar from "@/components/Navbar";
 
-const AccountPage = () => {
+export default function AccountPage() {
     const [user, setUser] = useState(null);
     const [username, setUsername] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [password, setPassword] = useState("");
     const router = useRouter();
 
     useEffect(() => {
-        const fetchUser = async () => {
+        async function fetchUser() {
             const { data: { user } } = await supabase.auth.getUser();
             if (user) {
                 setUser(user);
@@ -17,59 +18,99 @@ const AccountPage = () => {
             } else {
                 router.push("/login");
             }
-        };
+        }
         fetchUser();
     }, [router]);
 
-    const updateUsername = async () => {
-        if (!username.trim()) return;
-        setLoading(true);
-        const { error } = await supabase.auth.updateUser({
-            data: { username },
-        });
-        setLoading(false);
-        if (error) alert(error.message);
+    const handleUpdate = async () => {
+        if (!user) return;
+
+        const updates = {
+            data: {
+                username,
+            }
+        };
+
+        const { error } = await supabase.auth.updateUser(updates);
+        if (error) {
+            alert(error.message);
+        } else {
+            alert("Profile updated successfully");
+        }
     };
 
-    const handleSignOut = async () => {
-        await supabase.auth.signOut();
-        router.push("/login");
+    const handleChangePassword = async () => {
+        if (!password) return;
+        const { error } = await supabase.auth.updateUser({ password });
+        if (error) {
+            alert(error.message);
+        } else {
+            alert("Password updated successfully");
+            setPassword("");
+        }
+    };
+
+    const handleDeleteAccount = async () => {
+        if (!user) return;
+        const confirmDelete = confirm("Are you sure you want to delete your account? This action is irreversible.");
+        if (confirmDelete) {
+            const { error } = await supabase.auth.admin.deleteUser(user.id);
+            if (error) {
+                alert(error.message);
+            } else {
+                alert("Account deleted successfully");
+                router.push("/");
+            }
+        }
     };
 
     return (
-        <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
-            <h1 className="text-2xl font-bold mb-4">Manage Account</h1>
-            {user ? (
+
+        <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+<Navbar />
+            <h2 className="text-2xl font-semibold mb-4">Account Management</h2>
+            {user && (
                 <>
-                    <p className="mb-2 text-gray-600">Email: {user.email}</p>
                     <div className="mb-4">
-                        <label className="block text-gray-700 font-medium">Username</label>
+                        <label className="block text-sm font-medium text-gray-700">Username</label>
                         <input
                             type="text"
-                            className="w-full px-3 py-2 border rounded-lg"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
+                            className="mt-1 p-2 w-full border rounded-lg"
                         />
-                        <button
-                            onClick={updateUsername}
-                            className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition"
-                            disabled={loading}
-                        >
-                            {loading ? "Updating..." : "Update Username"}
-                        </button>
                     </div>
                     <button
-                        onClick={handleSignOut}
-                        className="mt-4 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-500 transition"
+                        onClick={handleUpdate}
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg mb-4"
                     >
-                        Sign Out
+                        Update Username
+                    </button>
+
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700">New Password</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="mt-1 p-2 w-full border rounded-lg"
+                        />
+                    </div>
+                    <button
+                        onClick={handleChangePassword}
+                        className="bg-green-500 text-white px-4 py-2 rounded-lg mb-4"
+                    >
+                        Change Password
+                    </button>
+
+                    <button
+                        onClick={handleDeleteAccount}
+                        className="bg-red-600 text-white px-4 py-2 rounded-lg"
+                    >
+                        Delete Account
                     </button>
                 </>
-            ) : (
-                <p>Loading...</p>
             )}
         </div>
     );
-};
-
-export default AccountPage;
+}

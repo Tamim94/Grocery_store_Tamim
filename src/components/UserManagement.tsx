@@ -4,11 +4,12 @@ import { supabase } from '@/utils/supabaseClient';
 const UserManagement = () => {
     const [users, setUsers] = useState<any[]>([]);
     const [editingUser, setEditingUser] = useState<any>(null);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const fetchUsers = async () => {
         const { data, error } = await supabase
             .from('users')
-            .select('id, email, username'); // Ensure 'name' is included
+            .select('id, email, username');
 
         if (error) console.error('Error fetching users:', error);
         else setUsers(data);
@@ -18,7 +19,6 @@ const UserManagement = () => {
         fetchUsers();
     }, []);
 
-    // Update User
     const handleUpdate = async (id: number) => {
         const { error } = await supabase.from('users').update(editingUser).eq('id', id);
         if (error) console.error('Error updating user:', error);
@@ -28,17 +28,27 @@ const UserManagement = () => {
         }
     };
 
-    // Delete User
     const handleDelete = async (id: number) => {
         const { error } = await supabase.from('users').delete().eq('id', id);
         if (error) console.error('Error deleting user:', error);
         else setUsers(users.filter(u => u.id !== id));
     };
 
+    const filteredUsers = users.filter(user =>
+        user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div>
             <h2 className="text-2xl font-semibold mb-4">Manage Users</h2>
-
+            <input
+                type="text"
+                placeholder="Search users..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="border p-2 mb-4 w-full"
+            />
             <table className="min-w-full bg-white border border-gray-200">
                 <thead>
                 <tr className="bg-gray-200">
@@ -48,7 +58,7 @@ const UserManagement = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {users.map(user => (
+                {filteredUsers.map(user => (
                     <tr key={user.id} className="hover:bg-gray-100">
                         {editingUser?.id === user.id ? (
                             <>
