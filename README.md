@@ -1,5 +1,7 @@
 ## Before you read it , the admin side of the website is the functionnal (CRUD ) part of the website. The user side is just a basic layout with no functionnalities YET (incoming soon).
 I will send you the .env.local file with the supabase keys and the nextauth key in your outlook mail (if you didnt get it pm me on teams else if i put it github it will be public and i will get banned).
+## The admin part of the app will be on localhost:3000/admin login are root@root.com and the password is root
+install all dependancies with npm run install after cloning the project 
 
 # Grocery Store Web Application Documentation
 
@@ -31,7 +33,7 @@ This web application simulates a basic online grocery store.  Administrators can
 * **React:**  A JavaScript library for building user interfaces.
 * **Supabase:**  A backend-as-a-service platform that provides a PostgreSQL database, authentication, and other services.
 * **Tailwind CSS:**  A utility-first CSS framework.
-* **NextAuth.js (Optional):**  If used, for authentication with providers like Google.
+* **NextAuth.js (Optional):**  If used, for authentication with providers like Google. ( i tried but its complicated so i may do it later if i set up GCP)
 
 
 ## 3. Project Structure ( only the files that are important)
@@ -78,6 +80,7 @@ grocery-store-app/
 ├── .env.local # Environment variables
 ├── package.json
 
+```
 ## 4. Frontend
 
 ### 4.1 Components
