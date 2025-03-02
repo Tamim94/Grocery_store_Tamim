@@ -28,7 +28,7 @@ const ProductsPage = () => {
 
     return (
         <div className="min-h-screen flex flex-col">
-            <Navbar />
+
             <div className="flex-grow p-6 bg-gray-100">
                 <h1 className="text-3xl font-bold text-center mb-8">Our Products</h1>
                 <div className="flex flex-col md:flex-row justify-between mb-6">
@@ -58,7 +58,7 @@ const ProductsPage = () => {
                     ))}
                 </div>
             </div>
-            <Footer />
+
         </div>
     );
 };

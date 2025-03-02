@@ -23,6 +23,7 @@ const AdminLogin = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4">
             <h1 className="text-2xl font-bold mb-4">Admin Login</h1>
+            <p className="mb-4">You can use root@root.com and root as password to login</p>
             {error && <p className="text-red-500">{error}</p>}
             <form onSubmit={handleLogin} className="flex flex-col gap-3">
                 <input
