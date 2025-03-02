@@ -4,7 +4,7 @@ import Footer from '@/components/Footer';
 const Contact = () => {
     return (
         <div className="min-h-screen flex flex-col">
-            <Navbar />
+
             <div className="flex-grow p-6 bg-gray-100 flex flex-col items-center justify-center">
                 <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
                 <p className="text-lg text-center mb-6">
@@ -41,7 +41,7 @@ const Contact = () => {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="message"
                             placeholder="Your Message"
-                            rows="4"
+                            rows={4}
                         ></textarea>
                     </div>
                     <div className="flex items-center justify-between">
@@ -54,7 +54,7 @@ const Contact = () => {
                     </div>
                 </form>
             </div>
-            <Footer />
+
         </div>
     );
 };

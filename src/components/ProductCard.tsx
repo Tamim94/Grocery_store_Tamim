@@ -1,7 +1,20 @@
-// src/components/ProductCard.tsx
 import Link from 'next/link';
 
-const ProductCard = ({ product }) => {
+type Product = {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    stock: number;
+    image_url: string;
+    category: string;
+};
+
+interface ProductCardProps {
+    product: Product;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     return (
         <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
             <img src={product.image_url} alt={product.name} className="w-full h-48 object-cover" />

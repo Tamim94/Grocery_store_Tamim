@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "@/utils/supabaseClient";
+import { User } from "@supabase/supabase-js";
 import Navbar from "@/components/Navbar";
 
 export default function AccountPage() {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<User | null>(null);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
@@ -54,7 +55,7 @@ export default function AccountPage() {
         if (!user) return;
         const confirmDelete = confirm("Are you sure you want to delete your account? This action is irreversible.");
         if (confirmDelete) {
-            const { error } = await supabase.auth.admin.deleteUser(user.id);
+            const { error } = await supabase.auth.admin.deleteUser(user!.id);
             if (error) {
                 alert(error.message);
             } else {
@@ -65,9 +66,8 @@ export default function AccountPage() {
     };
 
     return (
-
         <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
-<Navbar />
+            <Navbar />
             <h2 className="text-2xl font-semibold mb-4">Account Management</h2>
             {user && (
                 <>

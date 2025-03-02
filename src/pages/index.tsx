@@ -3,8 +3,16 @@ import Navbar from '@/components/Navbar';
 import { supabase } from '@/utils/supabaseClient';
 import Footer from "@/components/Footer";
 
+interface Product {
+    id: number;
+    image_url: string;
+    name: string;
+    category: string;
+    price: number;
+}
+
 const HomePage = () => {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -34,7 +42,7 @@ const HomePage = () => {
             <div className="container mx-auto px-4 py-16">
                 <h2 className="text-3xl font-bold text-center mb-10">Featured Products</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {products.map(product => (
+                    {products.map((product: Product) => (
                         <div key={product.id} className="border p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <img src={product.image_url} alt={product.name} className="w-full h-48 object-cover mb-4 rounded-lg" />
                             <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
@@ -47,8 +55,6 @@ const HomePage = () => {
                     ))}
                 </div>
             </div>
-
-
         </div>
     );
 };

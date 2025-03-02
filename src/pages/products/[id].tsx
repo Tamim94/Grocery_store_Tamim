@@ -4,10 +4,19 @@ import { supabase } from '@/utils/supabaseClient';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
+type Product = {
+    image_url: string;
+    name: string;
+    description: string;
+    category: string;
+    price: number;
+    stock: number;
+};
+
 const ProductDetails = () => {
     const router = useRouter();
     const { id } = router.query;
-    const [product, setProduct] = useState(null);
+    const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<null | string>(null);
 

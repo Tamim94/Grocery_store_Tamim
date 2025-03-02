@@ -9,23 +9,23 @@ const Signup = () => {
     const [error, setError] = useState('');
     const router = useRouter();
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
 
         const { error } = await supabase.auth.signUp({
             email: formData.email,
             password: formData.password,
-        }, {
-            data: {
-                first_name: formData.first_name,
-                last_name: formData.last_name,
-                gender: formData.gender,
-                username: formData.username,
+            options: {
+                data: {
+                    first_name: formData.first_name,
+                    last_name: formData.last_name,
+                    gender: formData.gender,
+                }
             }
         });
 

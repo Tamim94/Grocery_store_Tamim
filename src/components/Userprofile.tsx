@@ -1,16 +1,23 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "@/utils/supabaseClient";
+import { User as SupabaseUser } from "@supabase/auth-js";
+
+type User = SupabaseUser & {
+    user_metadata: {
+        username: string;
+    };
+};
 
 const UserProfile = () => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<User | null>(null);
     const [showDropdown, setShowDropdown] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
         const getUser = async () => {
             const { data: { user } } = await supabase.auth.getUser();
-            setUser(user);
+            setUser(user as User);
         };
         getUser();
     }, []);
@@ -24,7 +31,6 @@ const UserProfile = () => {
     return (
         <div className="relative">
             {user ? (
-                // Logged-in state
                 <div
                     className="relative"
                     onMouseEnter={() => setShowDropdown(true)}
@@ -42,11 +48,8 @@ const UserProfile = () => {
                         </div>
                     </button>
 
-                    {/* Dropdown Menu */}
                     {showDropdown && (
-                        <div
-                            className="absolute right-0 mt-2 w-56 bg-white shadow-lg rounded-lg p-4"
-                        >
+                        <div className="absolute right-0 mt-2 w-56 bg-white shadow-lg rounded-lg p-4">
                             <p className="text-gray-800 font-semibold">{user.user_metadata.username}</p>
                             <p className="text-gray-500 text-sm">{user.email}</p>
                             <hr className="my-2" />
@@ -66,7 +69,6 @@ const UserProfile = () => {
                     )}
                 </div>
             ) : (
-                // Not logged in state
                 <div className="flex space-x-4">
                     <button
                         onClick={() => router.push("/login")}

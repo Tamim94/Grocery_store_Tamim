@@ -3,8 +3,18 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
 
+type Product = {
+    id: string;
+    name: string;
+    category: string;
+    image_url: string;
+    description: string;
+    price: number;
+    stock: number;
+};
+
 const ProductsPage = () => {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState<Product[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -28,7 +38,7 @@ const ProductsPage = () => {
 
     return (
         <div className="min-h-screen flex flex-col">
-
+            <Navbar />
             <div className="flex-grow p-6 bg-gray-100">
                 <h1 className="text-3xl font-bold text-center mb-8">Our Products</h1>
                 <div className="flex flex-col md:flex-row justify-between mb-6">
@@ -58,9 +68,8 @@ const ProductsPage = () => {
                     ))}
                 </div>
             </div>
-
+            <Footer />
         </div>
     );
 };
-
 export default ProductsPage;
