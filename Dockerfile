@@ -1,5 +1,5 @@
-# Use an official Node.js runtime as a parent image with a compatible version
-FROM node:20
+# Use a smaller base image for Node.js
+FROM node:20-alpine
 
 # Set the working directory
 WORKDIR /app
@@ -25,5 +25,5 @@ RUN npm run build
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Start the application
+# Start the application in development mode
 CMD ["npm", "run", "dev"]
